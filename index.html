@@ -7,6 +7,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
+
+        @font-face {
+            font-family: 'B Arabic Style';
+           src: url(fonts/BArabicStyle1.ttf) format('truetype');
+           font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'decotype thuluth ii';
+           src: url(fonts/DTHULUTHII.ttf) format('truetype');
+           font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'diwani letter';
+           src: url(fonts/DiwaniLetter.ttf) format('truetype');
+           font-weight: normal;
+            font-style: normal;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -18,7 +37,7 @@
             --color-white: #ffffff;
             --color-gray: #f5f5f5;
             --color-dark-gray: #333333;
-            --color-accent: #8B7355; /* Warm sophisticated bronze */
+            --color-accent: #8B7355;
             --color-accent-light: #a58c6c;
             --font-primary: 'Inter', sans-serif;
         }
@@ -29,6 +48,32 @@
             color: var(--color-dark-gray);
             line-height: 1.7;
             font-weight: 300;
+            overflow-x: hidden;
+        }
+
+        /* Arabic Calligraphy Container - NOT fixed, scrolls with page */
+        .calligraphy-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        /* Individual calligraphy elements */
+        .calligraphy-element {
+            position: absolute;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-size: 12rem;
+            color: var(--color-accent);
+            opacity: 0.08;
+            white-space: nowrap;
+            z-index: -1;
+            font-weight: bold;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.1);
+            transform-origin: center;
         }
 
         /* Typography */
@@ -48,6 +93,8 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 40px;
+            position: relative;
+            z-index: 2;
         }
 
         /* Header */
@@ -55,11 +102,12 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: var(--color-white);
+            background-color: rgba(255, 255, 255, 0.95);
             z-index: 1000;
             border-bottom: 1px solid rgba(0,0,0,0.05);
             padding: 25px 0;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .header-container {
@@ -124,12 +172,14 @@
             display: flex;
             align-items: center;
             padding-top: 100px;
-            background-color: var(--color-white);
             position: relative;
+            overflow: hidden;
         }
 
         .hero-content {
             max-width: 800px;
+            position: relative;
+            z-index: 3;
         }
 
         .hero h1 {
@@ -149,13 +199,15 @@
         .hero-cta {
             display: inline-block;
             padding: 15px 40px;
-            background-color: var(--color-black);
+            background-color: #8B7355;
             color: var(--color-white);
             text-decoration: none;
             font-weight: 500;
             letter-spacing: 1.5px;
             transition: all 0.3s;
-            border: 1px solid var(--color-black);
+            border: 1px solid #8B7355;
+            position: relative;
+            z-index: 3;
         }
 
         .hero-cta:hover {
@@ -166,11 +218,15 @@
         /* Section Styling */
         section {
             padding: 120px 0;
+            position: relative;
+            background-color: var(--color-white);
         }
 
         .section-header {
             text-align: center;
             margin-bottom: 80px;
+            position: relative;
+            z-index: 2;
         }
 
         .section-header h2 {
@@ -189,7 +245,9 @@
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 10px;
+            gap: 40px;
+            position: relative;
+            z-index: 2;
         }
 
         .project-card {
@@ -198,6 +256,21 @@
             cursor: pointer;
             height: 500px;
             background-color: var(--color-black);
+            border-radius: 8px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .project-card.hidden {
+            display: none;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .project-image {
@@ -222,6 +295,7 @@
             color: var(--color-white);
             transform: translateY(10px);
             transition: transform 0.5s;
+            border-radius: 0 0 8px 8px;
         }
 
         .project-card:hover .project-info {
@@ -229,10 +303,9 @@
         }
 
         .project-title {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-bottom: 10px;
             font-weight: 600;
-            color: #f5f5f5;
         }
 
         .project-year {
@@ -240,6 +313,44 @@
             color: var(--color-accent);
             letter-spacing: 2px;
             font-weight: 400;
+        }
+
+        /* Show More Button */
+        .show-more-container {
+            text-align: center;
+            margin-top: 60px;
+            grid-column: 1 / -1;
+        }
+
+        .show-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 45px;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .show-more-btn:hover {
+            background-color: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 115, 85, 0.2);
+        }
+
+        .show-more-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .show-more-btn.showing-less i {
+            transform: rotate(180deg);
         }
 
         /* Modal Gallery */
@@ -271,6 +382,7 @@
             display: flex;
             overflow: hidden;
             position: relative;
+            border-radius: 8px;
         }
 
         .close-modal {
@@ -336,6 +448,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 50%;
         }
 
         .nav-btn:hover {
@@ -358,14 +471,13 @@
         }
 
         .modal-title {
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 30px;
-            /* color: var(--color-black); */
-            color: #8B7355;
+            color: var(--color-black);
         }
 
         .project-description {
-            font-size: 1rem;
+            font-size: 1.3rem;
             line-height: 1.8;
             margin-bottom: 40px;
             color: var(--color-dark-gray);
@@ -404,6 +516,8 @@
             grid-template-columns: 1fr 1fr;
             gap: 80px;
             align-items: center;
+            position: relative;
+            z-index: 2;
         }
 
         .about-text h2 {
@@ -423,12 +537,16 @@
             background-image: url('https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
             background-size: cover;
             background-position: center;
+            position: relative;
+            z-index: 2;
+            border-radius: 8px;
         }
 
         /* Contact Section */
         .contact-section {
             background-color: var(--color-black);
             color: var(--color-white);
+            position: relative;
         }
 
         .contact-section .section-header h2,
@@ -440,6 +558,8 @@
             max-width: 600px;
             margin: 0 auto;
             text-align: center;
+            position: relative;
+            z-index: 2;
         }
 
         .contact-info {
@@ -480,12 +600,30 @@
             padding: 60px 0;
             text-align: center;
             border-top: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 2;
         }
 
         .copyright {
             font-size: 0.9rem;
             color: rgba(255,255,255,0.5);
             letter-spacing: 1px;
+        }
+
+        /* Category Headers */
+        .category-header {
+            grid-column: 1 / -1;
+            margin: 60px 0 30px 0;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--color-accent);
+            position: relative;
+        }
+
+        .category-header h2 {
+            font-size: 2.5rem;
+            color: var(--color-black);
+            font-weight: 700;
+            letter-spacing: 2px;
         }
 
         /* Responsive Design */
@@ -502,6 +640,10 @@
             
             .media-section {
                 height: 60vh;
+            }
+
+            .calligraphy-element {
+                font-size: 9rem;
             }
         }
 
@@ -522,6 +664,10 @@
             .projects-grid {
                 grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
                 gap: 30px;
+            }
+
+            .calligraphy-element {
+                font-size: 7rem;
             }
         }
 
@@ -556,6 +702,14 @@
                 height: 50px;
                 font-size: 1.2rem;
             }
+
+            .calligraphy-element {
+                font-size: 5rem;
+            }
+
+            .category-header h2 {
+                font-size: 2rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -578,14 +732,83 @@
             .project-description {
                 font-size: 1.2rem;
             }
+
+            .calligraphy-element {
+                font-size: 4rem;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Arabic Calligraphy Container (scrolls with page) -->
+    <div class="calligraphy-container" id="calligraphyContainer">
+        <!-- Calligraphy elements will be generated by JavaScript -->
+    </div>
+
+    <style>
+       /* .ar-container{
+            position: relative;
+            width: 100%;
+              overflow: visible !important;
+
+
+        }
+        .ar{
+
+        font-family: 'B Arabic Style';
+        font-family: 'decotype thuluth ii';
+        font-family: 'diwani letter';
+            font-size: 300px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1000;
+            color: #a58c6c;
+            opacity: 0.4;
+         scale:0.9;
+            
+            
+        }
+        .ar-1{
+            top: 300px;
+            left: -100px;
+            rotate: -20deg;
+        }
+        .ar-2{
+            top: 50px;
+            right: -20px;
+            rotate: -20deg;
+        }
+        #portfolio{
+            position: relative;
+        }
+        .ar-3{
+            top: 0;
+            right: 0;
+            transform: translate(-50%, -50%);
+            rotate: -20deg;
+            scale: 0.7;
+        font-family: 'decotype thuluth ii';
+            
+
+        }
+
+        */
+
+    </style>
+<!-- <div class="ar-container"> 
+    <p class="ar ar-1">حب</p>
+    <p class="ar ar-2">شغف</p>
+    <!-- <p class="ar ar-6">جمال </p> -->
+    <!-- <p class="ar ar-4">كمال</p>
+    <p class="ar ar-5">تفاصيل</p>
+    <!-- <p class="ar ar-6">إبداع</p> -->
+    
+</div> 
+
     <!-- Header -->
     <header>
         <div class="container header-container">
-            <a href="#" class="logo">HICHAM<span>GARRAG</span></a>
+            <a href="#" class="logo">SOPHIA<span>WILLIAMS</span></a>
             <nav>
                 <ul>
                     <li><a href="#portfolio">PORTFOLIO</a></li>
@@ -603,19 +826,132 @@
                 <h1>Crafting Immersive Worlds Through Set Design</h1>
                 <p>With over a decade of experience in film, television, and theater, I transform narratives into tangible environments that breathe life into stories and captivate audiences.</p>
                 <a href="#portfolio" class="hero-cta">VIEW PORTFOLIO</a>
+                
+            </div>
+             <div class="ar-section-1">
+                <style>
+                    section.container{
+                        position: relative;
+                        
+                    }
+                    section .container .ar-section-1{
+                        position: absolute;
+                        top: 0;
+                        right: 150px;
+                        width: 100%;
+                        height: 100%;
+            
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        z-index: -1;
+                    } 
+                    p.ar-1{
+                        font-family: 'decotype thuluth ii';
+                        font-size: 500px;
+                        rotate: -20deg;
+                        color: #8B7355;
+                        opacity: 0.7;
+                    }
+
+                    @media only screen and (max-width: 600px) {
+                        section .container .ar-section-1{
+                            right: 0;
+                            width: auto;
+                            height: auto;
+                            position: relative;
+                            display: block;
+                            margin: 0 auto;
+                            text-align: center;
+                            z-index: 1;
+                        }
+                        p.ar-1{
+                            font-size: 200px;
+                            margin: 0;
+                        }
+                    }
+        section.hero{
+            margin-top: 50px;
+        }
+
+
+                </style>
+                 <p class="ar ar-1">هشام</p> 
             </div>
         </div>
     </section>
 
     <!-- Portfolio Section -->
     <section id="portfolio">
+       
         <div class="container">
+
             <div class="section-header">
-                <h2>Selected Projects</h2>
-                <p>A curated selection of my most impactful set design work across various genres and mediums.</p>
+                <div class="section-text">
+
+                    <h2>Selected Projects</h2>
+                    <p>A curated selection of my most impactful set design work across various genres and mediums.</p>
+                </div>
+                 <div class="ar-section-2">
+                <style>
+                    .section-header{
+                        position: relative;
+                        display: flex;
+                        align-items: center ;
+                        justify-content: center ;
+                    }
+                    .section-header .ar-section-2{
+                        position: absolute;
+                        width: 100vw;
+                        height: 100%;
+            
+                        display: flex;
+                        align-items: center ;
+                        justify-content: space-between ;
+                        z-index: -1;
+                    } 
+                    .ar-section-2 p.ar-2{
+                        position: absolute;
+                        font-family: 'decotype thuluth ii';
+                        font-size: 250px;
+                        rotate: -20deg;
+                        color: #797979;
+                        opacity: 0.4;
+                        margin: 0;
+                        scale: 0.7;
+                        left: 0%;
+                        
+                    }
+                    .ar-section-2 p.ar-3{
+                        position: absolute;
+                        font-family: 'decotype thuluth ii';
+                        font-size: 250px;
+                        rotate: -20deg;
+                        color: #797979;
+                        opacity: 0.4;
+                        margin: 0;
+                        scale: 0.7;
+                        right: 0%;
+            
+
+        }
+
+                </style>
+                <p class="ar ar-2">شغف</p> 
+                <p class="ar ar-3">حب</p> 
             </div>
-            <div class="projects-grid" id="projects-grid">
+            </div>
+           
+            <div class="projects-grid" id="projectsGrid">
                 <!-- Project cards will be generated by JavaScript -->
+            </div>
+
+            <!-- Show More Button Container -->
+            <div class="show-more-container" id="showMoreContainer" style="display: none;">
+                <button class="show-more-btn" id="showMoreBtn">
+                    <span id="showMoreText">Show More</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
             </div>
         </div>
     </section>
@@ -695,409 +1031,354 @@
     </div>
 
     <script>
-        // Project Data
-        const projects=[
-
-
-        {
-          "id": 1,
-          "title": "CAPTAIN PHILLIPS",
-          "year": "2010",
-          "role": "SET DRESSING",
-          "description": "Contributed to the visual authenticity of ship interiors and crew environments. Ensured continuity and safety in dynamic shooting conditions.",
-          "type": "film",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1584269600463-83c5c2bc7166?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Ship interior set dressing"
-            },
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1561530116-57e8afc57569?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Naval control room set"
-            }
-          ],
-          "details": ["Genre: Drama/Thriller", "Director: Paul Greengrass", "Production: Columbia Pictures"]
-        },
-        {
-          "id": 2,
-          "title": "TRANSPORTER: THE SERIES – SEASON 2",
-          "year": "2014",
-          "role": "PROPS ASSISTANT",
-          "description": "Supported the props department with preparation, maintenance, and organization of hero props for action sequences.",
-          "type": "television",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1546443046-ed1ce6ffd1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Action vehicle props"
-            }
-          ],
-          "details": ["Format: TV Series", "Genre: Action", "Network: HBO"]
-        },
-        {
-          "id": 3,
-          "title": "MISSION: IMPOSSIBLE – ROGUE NATION",
-          "year": "2014",
-          "role": "PROPS ASSISTANT",
-          "description": "Assisted in prop logistics and scene setup for complex stunt and chase scenes, maintaining accuracy between takes.",
-          "type": "film",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Stunt scene prop setup"
-            }
-          ],
-          "details": ["Genre: Action/Adventure", "Director: Christopher McQuarrie", "Production: Paramount Pictures"]
-        },
-        {
-          "id": 4,
-          "title": "SPECTRE",
-          "year": "2014",
-          "role": "SET DRESSING",
-          "description": "Collaborated with set designers to dress intricate sets for the Morocco sequences, ensuring consistency across camera angles.",
-          "type": "film",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1542204165-65bf26472b9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Morocco market set dressing"
-            },
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Interior Moroccan set"
-            }
-          ],
-          "details": ["Genre: Action/Adventure", "Director: Sam Mendes", "Production: MGM"]
-        },
-        {
-          "id": 5,
-          "title": "ARMY OF ONE",
-          "year": "2015",
-          "role": "PROPS STANDBY",
-          "description": "Handled on-set props and continuity, ensuring accurate positioning and availability during principal photography.",
-          "type": "film",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1531315630201-bb15abeb1653?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "On-set props continuity"
-            }
-          ],
-          "details": ["Genre: Comedy/Drama", "Director: Larry Charles", "Production: Voltage Pictures"]
-        },
-        {
-          "id": 6,
-          "title": "JOHN WICK: CHAPTER 3",
-          "year": "2018",
-          "role": "SET DRESSING / STANDBY (ON SET)",
-          "description": "Executed detailed scene dressing for multiple action sets. Supported the art department on standby during key stunt sequences.",
-          "type": "film",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Action sequence set dressing"
-            },
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Neon-lit set environment"
-            }
-          ],
-          "details": ["Genre: Action/Thriller", "Director: Chad Stahelski", "Production: Lionsgate"]
-        },
-        {
-          "id": 7,
-          "title": "MEN IN BLACK: INTERNATIONAL",
-          "year": "2018",
-          "role": "SET DRESSING",
-          "description": "Worked with the set decoration team to construct and style futuristic environments for principal photography.",
-          "type": "film",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Futuristic office set"
-            },
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Alien technology displays"
-            }
-          ],
-          "details": ["Genre: Action/Comedy", "Director: F. Gary Gray", "Production: Columbia Pictures"]
-        },
-        {
-          "id": 8,
-          "title": "BLOOD AND TREASURE",
-          "year": "2018",
-          "role": "SET DRESSING",
-          "description": "Contributed to set preparation and on-location styling for large-scale action scenes.",
-          "type": "television",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Desert location set"
-            }
-          ],
-          "details": ["Format: TV Series", "Genre: Action/Adventure", "Network: CBS"]
-        },
-        {
-          "id": 9,
-          "title": "THE OLD GUARD",
-          "year": "2019",
-          "role": "PROPS STANDBY (ON SET)",
-          "description": "Prepared and managed hero props during live takes. Ensured safety and proper handoff between departments.",
-          "type": "film",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Historical weapon props"
-            }
-          ],
-          "details": ["Genre: Action/Fantasy", "Director: Gina Prince-Bythewood", "Production: Netflix"]
-        },
-        {
-          "id": 10,
-          "title": "ALEXANDER: THE MAKING OF A GOD",
-          "year": "2022",
-          "role": "PROPS STANDBY",
-          "description": "Assisted in the creation and management of historically accurate props.",
-          "type": "television",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Historical battle props"
-            },
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1542744095-0d4dab7b550d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Ancient artifacts"
-            }
-          ],
-          "details": ["Format: Documentary Series", "Genre: Historical", "Network: Netflix"]
-        },
-        {
-          "id": 11,
-          "title": "GLADIATOR II",
-          "year": "2023",
-          "role": "PROPS MAKER",
-          "description": "Fabricated and finished period props for large-scale sets, maintaining authenticity and durability under production demands.",
-          "type": "film",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Roman armor props"
-            },
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1542744095-1d5d0d4c1d8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Ancient weapon fabrication"
-            }
-          ],
-          "details": ["Genre: Historical/Action", "Director: Ridley Scott", "Production: Paramount Pictures"]
-        },
-        {
-          "id": 12,
-          "title": "KHO KWATATOU",
-          "year": "2022",
-          "role": "PROPS MASTER",
-          "description": "Led the props department for the Moroccan television series. Oversaw prop design, team coordination, and continuity on set.",
-          "type": "television",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Moroccan traditional props"
-            },
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1542204165-65bf26472b9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Cultural artifacts"
-            }
-          ],
-          "details": ["Format: TV Series", "Genre: Drama", "Network: Moroccan Television"]
-        }
-     ,
-        {
-          "id": 13,
-          "title": "WELLA COSMETICS",
-          "year": "2019",
-          "role": "PROPS MAKER / ON-SET",
-          "description": "Designed and managed product-related props and decorative elements.",
-          "type": "commercial",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Cosmetic product styling"
-            }
-          ],
-          "details": ["Client: Wella Professionals", "Category: Beauty", "Agency: Global Creative"]
-        },
-        {
-          "id": 14,
-          "title": "YAMAHA MOTORS",
-          "year": "2021",
-          "role": "PROPS MASTER / ON-SET",
-          "description": "Supervised prop creation and scene styling for dynamic product visuals.",
-          "type": "commercial",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Motorcycle product shoot"
-            }
-          ],
-          "details": ["Client: Yamaha Corporation", "Category: Automotive", "Agency: International Production"]
-        },
-        {
-          "id": 15,
-          "title": "RANGE ROVER – 'ABOVE & BEYOND'",
-          "year": "2021",
-          "role": "PROPS MASTER / ON-SET",
-          "description": "Delivered high-quality prop and set solutions aligned with the brand's luxury aesthetic.",
-          "type": "commercial",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1563720223488-8f2f62a6e71a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Luxury vehicle commercial set"
-            },
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "High-end lifestyle props"
-            }
-          ],
-          "details": ["Client: Range Rover", "Category: Automotive/Luxury", "Agency: Premium Creative"]
-        },
-        {
-          "id": 16,
-          "title": "LESIEUR CRISTAL",
-          "year": "2023",
-          "role": "PROPS MASTER / SET DRESSING",
-          "description": "Handled both prop design and on-location dressing for a regional commercial shoot.",
-          "type": "commercial",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Food product commercial set"
-            }
-          ],
-          "details": ["Client: Lesieur Cristal", "Category: Food & Beverage", "Agency: Regional Production"]
-        },
-        {
-          "id": 17,
-          "title": "MUSIC VIDEOS",
-          "year": "2018-2023",
-          "role": "PROPS MAKER / ART DEPARTMENT SUPPORT",
-          "description": "Collaborated with directors and stylists to develop original prop concepts for both Moroccan and international artists.",
-          "type": "music",
-          "media": [
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Music video stage props"
-            },
-            {
-              "type": "image",
-              "src": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
-              "alt": "Performance set design"
-            }
-          ],
-          "details": ["Various Artists", "Genre: Multiple", "Format: Music Video"]
-        }
-      
-        ]
-        const pp = [
-            {
-                id: 1,
-                title: "Midnight Echoes",
-                year: "2023",
-                description: "A dystopian sci-fi film set in 2085 where memories can be extracted and traded. The set design focused on blending retro-futuristic elements with decaying urban landscapes to create a world that feels both familiar and alien. We built three main sets: the Memory Extraction Chamber with its intricate lighting system, the Control Room with over 200 custom monitors, and the Underground Cityscape that spanned 12,000 square feet of studio space.",
-                details: ["Genre: Sci-Fi/Drama", "Director: Alex Chen", "Production: Neon Pictures", "Budget: $45M", "My Role: Lead Set Designer", "Awards: Art Directors Guild Nomination"],
-                media: [
-                    {type: "image", src: "https://images.unsplash.com/photo-1534447677768-be436bb09401?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Main control room set"},
-                    {type: "image", src: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Memory extraction chamber"},
-                    {type: "image", src: "https://images.unsplash.com/photo-1542204165-65bf26472b9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Underground city streets"},
-                    {type: "video", src: "https://assets.mixkit.co/videos/preview/mixkit-set-of-plateaus-seen-from-the-heights-in-a-sunset-26070-large.mp4", alt: "Behind the scenes time-lapse"}
-                ]
-            },
-            {
-                id: 2,
-                title: "Whispers of Versailles",
-                year: "2022",
-                description: "Historical drama set in the court of Louis XVI. Extensive research was conducted to accurately recreate the opulence of 18th century French aristocracy while adapting spaces for modern filming techniques. We meticulously reconstructed the Hall of Mirrors at ¾ scale, using historically accurate materials and techniques. The project required collaboration with 12 artisans specializing in period woodwork, gilding, and textile reproduction.",
-                details: ["Genre: Historical Drama", "Director: Marie Leclerc", "Production: Époque Films", "Budget: $60M", "My Role: Set Design Director", "Awards: Period Accuracy Award"],
-                media: [
-                    {type: "image", src: "https://images.unsplash.com/photo-1544473241-4c6c1d6e7e5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Versailles ballroom recreation"},
-                    {type: "image", src: "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Royal chambers"},
-                    {type: "video", src: "https://assets.mixkit.co/videos/preview/mixkit-the-interior-of-a-modern-house-43985-large.mp4", alt: "Set construction process"}
-                ]
-            },
-            {
-                id: 3,
-                title: "Neon Odyssey",
-                year: "2021",
-                description: "Cyberpunk thriller set in a futuristic Tokyo. The challenge was creating a believable neon-drenched cityscape on a soundstage, combining practical sets with digital extensions. We built a two-story city block with working neon signs, rain effects, and interactive holograms. The main set featured a fully functional ramen shop with custom-designed furniture and lighting that could be controlled to match different times of day and emotional tones.",
-                details: ["Genre: Cyberpunk/Action", "Director: Kenji Tanaka", "Production: FutureVision Studios", "Budget: $75M", "My Role: Concept & Set Designer", "Awards: Best Production Design"],
-                media: [
-                    {type: "image", src: "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Neon alleyway set"},
-                    {type: "image", src: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "High-tech lab interior"},
-                    {type: "image", src: "https://images.unsplash.com/photo-1519677100205-a5ba52d5d0c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Rooftop chase scene set"},
-                    {type: "image", src: "https://images.unsplash.com/photo-1528164344705-47542687000d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Night market street"}
-                ]
-            },
-            {
-                id: 4,
-                title: "Arctic Dreams",
-                year: "2020",
-                description: "Survival drama set in the harsh Arctic wilderness. Built a combination of practical ice caves and snowscapes combined with stage sets to create the illusion of extreme cold environments. We developed a proprietary snow mixture that looked authentic on camera but wouldn't melt under hot studio lights. The ice cave set was carved from specialized foam and resin, then illuminated with LED systems that mimicked the unique quality of Arctic light filtering through ice.",
-                details: ["Genre: Survival Drama", "Director: Lars Johansson", "Production: Nordic Film Collective", "Budget: $30M", "My Role: Set & Environment Designer", "Awards: Environmental Design Award"],
-                media: [
-                    {type: "image", src: "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Ice cave interior"},
-                    {type: "image", src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Research station set"},
-                    {type: "video", src: "https://assets.mixkit.co/videos/preview/mixkit-white-snow-covered-mountain-peaks-4922-large.mp4", alt: "Set environment flythrough"}
-                ]
-            },
-            {
-                id: 5,
-                title: "Crimson Petals",
-                year: "2019",
-                description: "Romantic period piece set in Victorian England. Focused on intricate details of upper-class homes, gardens, and public spaces of the era, with particular attention to texture and color palette. We sourced authentic Victorian wallpapers, fabrics, and furniture from antique dealers across Europe. The garden set featured over 500 live plants arranged in historically accurate patterns, with a hidden irrigation system to keep them healthy during the 4-month shoot.",
-                details: ["Genre: Romance/Drama", "Director: Eleanor Vance", "Production: Heritage Pictures", "Budget: $40M", "My Role: Period Set Specialist", "Awards: Victorian Society Recognition"],
-                media: [
-                    {type: "image", src: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Victorian drawing room"},
-                    {type: "image", src: "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Period garden set"},
-                    {type: "image", src: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Grand ballroom"}
-                ]
-            },
-            {
-                id: 6,
-                title: "Desert Mirage",
-                year: "2018",
-                description: "Adventure film set in the Sahara desert. Created expansive desert landscapes on a backlot, combined with interior sets of ancient tombs and modern archaeological digs. We transported 200 tons of specially graded sand to create authentic-looking dunes that could withstand wind machines. The tomb interior featured hieroglyphics created by a team of Egyptologists and artists, painstakingly painted over six weeks to ensure historical accuracy while maintaining visual impact for cinematic purposes.",
-                details: ["Genre: Adventure/Mystery", "Director: Omar Hassan", "Production: Global Adventures Inc.", "Budget: $55M", "My Role: Location & Set Designer", "Awards: Adventure Film Design Award"],
-                media: [
-                    {type: "image", src: "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Desert oasis set"},
-                    {type: "image", src: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80", alt: "Ancient tomb interior"},
-                    {type: "video", src: "https://assets.mixkit.co/videos/preview/mixkit-waves-crashing-on-the-beach-5016-large.mp4", alt: "Desert wind simulation test"}
-                ]
-            }
+        // Arabic Calligraphy Data
+        const arabicWords = [
+            { word: "إبداع", size: "14rem", rotation: -15 },
+            { word: "جمال", size: "12rem", rotation: 20 },
+            { word: "تصميم", size: "16rem", rotation: 5 },
+            { word: "فن", size: "18rem", rotation: -25 },
+            { word: "إتقان", size: "13rem", rotation: 12 },
+            { word: "ذوق", size: "15rem", rotation: -8 },
+            { word: "أناقة", size: "11rem", rotation: 18 },
+            { word: "سحر", size: "17rem", rotation: -22 },
+            { word: "دقة", size: "12rem", rotation: 25 }
         ];
 
+        // Project Data
+        const projectsData = {
+            "categories": [
+                {
+                    "name": "FILM & TELEVISION",
+                    "projects": [
+                        {
+                            "id": 1,
+                            "title": "CAPTAIN PHILLIPS",
+                            "year": "2010",
+                            "role": "SET DRESSING",
+                            "description": "Contributed to the visual authenticity of ship interiors and crew environments. Ensured continuity and safety in dynamic shooting conditions.",
+                            "type": "film",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1584269600463-83c5c2bc7166?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Ship interior set dressing"
+                                },
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1561530116-57e8afc57569?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Naval control room set"
+                                }
+                            ],
+                            "details": ["Genre: Drama/Thriller", "Director: Paul Greengrass", "Production: Columbia Pictures"]
+                        },
+                        {
+                            "id": 2,
+                            "title": "TRANSPORTER: THE SERIES – SEASON 2",
+                            "year": "2014",
+                            "role": "PROPS ASSISTANT",
+                            "description": "Supported the props department with preparation, maintenance, and organization of hero props for action sequences.",
+                            "type": "television",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1546443046-ed1ce6ffd1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Action vehicle props"
+                                }
+                            ],
+                            "details": ["Format: TV Series", "Genre: Action", "Network: HBO"]
+                        },
+                        {
+                            "id": 3,
+                            "title": "MISSION: IMPOSSIBLE – ROGUE NATION",
+                            "year": "2014",
+                            "role": "PROPS ASSISTANT",
+                            "description": "Assisted in prop logistics and scene setup for complex stunt and chase scenes, maintaining accuracy between takes.",
+                            "type": "film",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1536440136628-849c177e76a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Stunt scene prop setup"
+                                }
+                            ],
+                            "details": ["Genre: Action/Adventure", "Director: Christopher McQuarrie", "Production: Paramount Pictures"]
+                        },
+                        {
+                            "id": 4,
+                            "title": "SPECTRE",
+                            "year": "2014",
+                            "role": "SET DRESSING",
+                            "description": "Collaborated with set designers to dress intricate sets for the Morocco sequences, ensuring consistency across camera angles.",
+                            "type": "film",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1542204165-65bf26472b9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Morocco market set dressing"
+                                },
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Interior Moroccan set"
+                                }
+                            ],
+                            "details": ["Genre: Action/Adventure", "Director: Sam Mendes", "Production: MGM"]
+                        },
+                        {
+                            "id": 5,
+                            "title": "ARMY OF ONE",
+                            "year": "2015",
+                            "role": "PROPS STANDBY",
+                            "description": "Handled on-set props and continuity, ensuring accurate positioning and availability during principal photography.",
+                            "type": "film",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1531315630201-bb15abeb1653?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "On-set props continuity"
+                                }
+                            ],
+                            "details": ["Genre: Comedy/Drama", "Director: Larry Charles", "Production: Voltage Pictures"]
+                        },
+                        {
+                            "id": 6,
+                            "title": "JOHN WICK: CHAPTER 3",
+                            "year": "2018",
+                            "role": "SET DRESSING / STANDBY (ON SET)",
+                            "description": "Executed detailed scene dressing for multiple action sets. Supported the art department on standby during key stunt sequences.",
+                            "type": "film",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Action sequence set dressing"
+                                },
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1542744095-fcf48d80b0fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Neon-lit set environment"
+                                }
+                            ],
+                            "details": ["Genre: Action/Thriller", "Director: Chad Stahelski", "Production: Lionsgate"]
+                        },
+                        {
+                            "id": 7,
+                            "title": "MEN IN BLACK: INTERNATIONAL",
+                            "year": "2018",
+                            "role": "SET DRESSING",
+                            "description": "Worked with the set decoration team to construct and style futuristic environments for principal photography.",
+                            "type": "film",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Futuristic office set"
+                                },
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Alien technology displays"
+                                }
+                            ],
+                            "details": ["Genre: Action/Comedy", "Director: F. Gary Gray", "Production: Columbia Pictures"]
+                        },
+                        {
+                            "id": 8,
+                            "title": "BLOOD AND TREASURE",
+                            "year": "2018",
+                            "role": "SET DRESSING",
+                            "description": "Contributed to set preparation and on-location styling for large-scale action scenes.",
+                            "type": "television",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Desert location set"
+                                }
+                            ],
+                            "details": ["Format: TV Series", "Genre: Action/Adventure", "Network: CBS"]
+                        },
+                        {
+                            "id": 9,
+                            "title": "THE OLD GUARD",
+                            "year": "2019",
+                            "role": "PROPS STANDBY (ON SET)",
+                            "description": "Prepared and managed hero props during live takes. Ensured safety and proper handoff between departments.",
+                            "type": "film",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1531259683007-016a7b628fc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Historical weapon props"
+                                }
+                            ],
+                            "details": ["Genre: Action/Fantasy", "Director: Gina Prince-Bythewood", "Production: Netflix"]
+                        },
+                        {
+                            "id": 10,
+                            "title": "ALEXANDER: THE MAKING OF A GOD",
+                            "year": "2022",
+                            "role": "PROPS STANDBY",
+                            "description": "Assisted in the creation and management of historically accurate props.",
+                            "type": "television",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Historical battle props"
+                                },
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1542744095-0d4dab7b550d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Ancient artifacts"
+                                }
+                            ],
+                            "details": ["Format: Documentary Series", "Genre: Historical", "Network: Netflix"]
+                        },
+                        {
+                            "id": 11,
+                            "title": "GLADIATOR II",
+                            "year": "2023",
+                            "role": "PROPS MAKER",
+                            "description": "Fabricated and finished period props for large-scale sets, maintaining authenticity and durability under production demands.",
+                            "type": "film",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Roman armor props"
+                                },
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1542744095-1d5d0d4c1d8e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Ancient weapon fabrication"
+                                }
+                            ],
+                            "details": ["Genre: Historical/Action", "Director: Ridley Scott", "Production: Paramount Pictures"]
+                        },
+                        {
+                            "id": 12,
+                            "title": "KHO KWATATOU",
+                            "year": "2022",
+                            "role": "PROPS MASTER",
+                            "description": "Led the props department for the Moroccan television series. Oversaw prop design, team coordination, and continuity on set.",
+                            "type": "television",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Moroccan traditional props"
+                                },
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1542204165-65bf26472b9b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Cultural artifacts"
+                                }
+                            ],
+                            "details": ["Format: TV Series", "Genre: Drama", "Network: Moroccan Television"]
+                        }
+                    ]
+                },
+                {
+                    "name": "COMMERCIAL & ADVERTISING",
+                    "projects": [
+                        {
+                            "id": 13,
+                            "title": "WELLA COSMETICS",
+                            "year": "2019",
+                            "role": "PROPS MAKER / ON-SET",
+                            "description": "Designed and managed product-related props and decorative elements.",
+                            "type": "commercial",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Cosmetic product styling"
+                                }
+                            ],
+                            "details": ["Client: Wella Professionals", "Category: Beauty", "Agency: Global Creative"]
+                        },
+                        {
+                            "id": 14,
+                            "title": "YAMAHA MOTORS",
+                            "year": "2021",
+                            "role": "PROPS MASTER / ON-SET",
+                            "description": "Supervised prop creation and scene styling for dynamic product visuals.",
+                            "type": "commercial",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Motorcycle product shoot"
+                                }
+                            ],
+                            "details": ["Client: Yamaha Corporation", "Category: Automotive", "Agency: International Production"]
+                        },
+                        {
+                            "id": 15,
+                            "title": "RANGE ROVER – ABOVE & BEYOND",
+                            "year": "2021",
+                            "role": "PROPS MASTER / ON-SET",
+                            "description": "Delivered high-quality prop and set solutions aligned with the brand's luxury aesthetic.",
+                            "type": "commercial",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1563720223488-8f2f62a6e71a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Luxury vehicle commercial set"
+                                },
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "High-end lifestyle props"
+                                }
+                            ],
+                            "details": ["Client: Range Rover", "Category: Automotive/Luxury", "Agency: Premium Creative"]
+                        },
+                        {
+                            "id": 16,
+                            "title": "LESIEUR CRISTAL",
+                            "year": "2023",
+                            "role": "PROPS MASTER / SET DRESSING",
+                            "description": "Handled both prop design and on-location dressing for a regional commercial shoot.",
+                            "type": "commercial",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Food product commercial set"
+                                }
+                            ],
+                            "details": ["Client: Lesieur Cristal", "Category: Food & Beverage", "Agency: Regional Production"]
+                        },
+                        {
+                            "id": 17,
+                            "title": "VARIOUS MUSIC VIDEOS",
+                            "year": "2018-2023",
+                            "role": "PROPS MAKER / ART DEPARTMENT SUPPORT",
+                            "description": "Collaborated with directors and stylists to develop original prop concepts for both Moroccan and international artists.",
+                            "type": "music",
+                            "media": [
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Music video stage props"
+                                },
+                                {
+                                    "type": "image",
+                                    "src": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80",
+                                    "alt": "Performance set design"
+                                }
+                            ],
+                            "details": ["Various Artists", "Genre: Multiple", "Format: Music Video"]
+                        }
+                    ]
+                }
+            ]
+        };
+
         // DOM Elements
-        const projectsGrid = document.getElementById('projects-grid');
+        const projectsGrid = document.getElementById('projectsGrid');
         const modalOverlay = document.getElementById('modalOverlay');
         const closeModal = document.getElementById('closeModal');
         const modalTitle = document.getElementById('modalTitle');
@@ -1108,37 +1389,188 @@
         const currentMedia = document.getElementById('currentMedia');
         const totalMedia = document.getElementById('totalMedia');
         const mediaSection = document.querySelector('.media-section');
+        const calligraphyContainer = document.getElementById('calligraphyContainer');
+        const showMoreBtn = document.getElementById('showMoreBtn');
+        const showMoreContainer = document.getElementById('showMoreContainer');
+        const showMoreText = document.getElementById('showMoreText');
 
         // State Variables
         let currentProject = null;
         let currentMediaIndex = 0;
+        let isShowingAll = false;
+        let visibleCount = 9; // Show first 9 projects initially
 
-        // Initialize Project Cards
+        // Get all projects flattened
+        function getAllProjects() {
+            let allProjects = [];
+            projectsData.categories.forEach(category => {
+                category.projects.forEach(project => {
+                    allProjects.push({
+                        ...project,
+                        categoryName: category.name
+                    });
+                });
+            });
+            return allProjects;
+        }
+
+        // Create Dynamic Arabic Calligraphy
+        function createArabicCalligraphy() {
+            const pageHeight = document.body.scrollHeight;
+            
+            const sections = [
+                { top: 200, left: '5%', wordIndex: 0 },
+                { top: 400, right: '10%', wordIndex: 1 },
+                { top: 600, left: '15%', wordIndex: 2 },
+                { top: 1200, right: '8%', wordIndex: 3 },
+                { top: 1500, left: '12%', wordIndex: 4 },
+                { top: 1800, right: '20%', wordIndex: 5 },
+                { top: 2100, left: '25%', wordIndex: 6 },
+                { top: 2400, right: '15%', wordIndex: 7 },
+                { top: 2800, left: '8%', wordIndex: 8 }
+            ];
+
+            sections.forEach((section) => {
+                const calligraphy = document.createElement('div');
+                calligraphy.className = 'calligraphy-element';
+                
+                const wordData = arabicWords[section.wordIndex];
+                
+                calligraphy.textContent = wordData.word;
+                calligraphy.style.top = `${section.top}px`;
+                
+                if (section.left) {
+                    calligraphy.style.left = section.left;
+                }
+                if (section.right) {
+                    calligraphy.style.right = section.right;
+                }
+                
+                calligraphy.style.fontSize = wordData.size;
+                calligraphy.style.transform = `rotate(${wordData.rotation}deg)`;
+                calligraphy.style.opacity = `${0.05 + (Math.random() * 0.05)}`;
+                
+                calligraphyContainer.appendChild(calligraphy);
+            });
+        }
+
+        // Initialize Project Cards with Show More functionality
         function initializeProjects() {
             projectsGrid.innerHTML = '';
             
-            projects.forEach(project => {
-                const projectCard = document.createElement('div');
-                projectCard.className = 'project-card';
-                projectCard.dataset.id = project.id;
-                
-                projectCard.innerHTML = `
-                    <img src="${project.media[0].src}" alt="${project.title}" class="project-image">
-                    <div class="project-info">
-                        <h3 class="project-title">${project.title}</h3>
-                        <p class="project-year">${project.year}</p>
-                    </div>
-                `;
-                
-                projectCard.addEventListener('click', () => openModal(project.id));
-                projectsGrid.appendChild(projectCard);
+            const allProjects = getAllProjects();
+            const totalProjects = allProjects.length;
+            
+            // Show only first 9 projects initially
+            const projectsToShow = allProjects.slice(0, visibleCount);
+            
+            // Group projects by category for display
+            const projectsByCategory = {};
+            
+            projectsToShow.forEach(project => {
+                if (!projectsByCategory[project.categoryName]) {
+                    projectsByCategory[project.categoryName] = [];
+                }
+                projectsByCategory[project.categoryName].push(project);
             });
+            
+            // Display categories and projects
+            Object.keys(projectsByCategory).forEach(categoryName => {
+                // Create category header
+                const categoryHeader = document.createElement('div');
+                categoryHeader.className = 'category-header';
+                categoryHeader.innerHTML = `<h2>${categoryName}</h2>`;
+                projectsGrid.appendChild(categoryHeader);
+                
+                // Add projects for this category
+                projectsByCategory[categoryName].forEach(project => {
+                    createProjectCard(project);
+                });
+            });
+            
+            // Show the Show More button if there are more projects
+            if (totalProjects > visibleCount) {
+                showMoreContainer.style.display = 'block';
+                updateShowMoreButton();
+            }
+        }
+
+        // Create a project card
+        function createProjectCard(project) {
+            const projectCard = document.createElement('div');
+            projectCard.className = 'project-card';
+            projectCard.dataset.id = project.id;
+            
+            projectCard.innerHTML = `
+                <img src="${project.media[0].src}" alt="${project.title}" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">${project.title}</h3>
+                    <p class="project-year">${project.year} • ${project.role}</p>
+                </div>
+            `;
+            
+            projectCard.addEventListener('click', () => openModal(project.id));
+            projectsGrid.appendChild(projectCard);
+            
+            // Add animation delay based on index
+            const cards = document.querySelectorAll('.project-card');
+            const index = cards.length - 1;
+            projectCard.style.animationDelay = `${index * 0.1}s`;
+        }
+
+        // Show More / Show Less functionality
+        function toggleShowMore() {
+            const allProjects = getAllProjects();
+            
+            if (!isShowingAll) {
+                // Show all projects
+                const remainingProjects = allProjects.slice(visibleCount);
+                
+                remainingProjects.forEach(project => {
+                    createProjectCard(project);
+                });
+                
+                isShowingAll = true;
+            } else {
+                // Hide extra projects (keep only first 9)
+                const projectCards = document.querySelectorAll('.project-card');
+                
+                for (let i = visibleCount; i < projectCards.length; i++) {
+                    projectCards[i].style.opacity = '0';
+                    projectCards[i].style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        projectCards[i].remove();
+                    }, 300);
+                }
+                
+                isShowingAll = false;
+            }
+            
+            updateShowMoreButton();
+        }
+
+        // Update Show More button text and icon
+        function updateShowMoreButton() {
+            const allProjects = getAllProjects();
+            const totalProjects = allProjects.length;
+            
+            if (isShowingAll) {
+                showMoreText.textContent = 'Show Less';
+                showMoreBtn.classList.add('showing-less');
+            } else {
+                showMoreText.textContent = `Show More (+${totalProjects - visibleCount})`;
+                showMoreBtn.classList.remove('showing-less');
+            }
         }
 
         // Open Modal with Project
         function openModal(projectId) {
-            currentProject = projects.find(p => p.id === projectId);
+            const allProjects = getAllProjects();
+            currentProject = allProjects.find(p => p.id === projectId);
             currentMediaIndex = 0;
+            
+            if (!currentProject) return;
             
             // Update modal content
             modalTitle.textContent = currentProject.title;
@@ -1197,6 +1629,8 @@
 
         // Navigate Media
         function navigateMedia(direction) {
+            if (!currentProject) return;
+            
             if (direction === 'next') {
                 currentMediaIndex = (currentMediaIndex + 1) % currentProject.media.length;
             } else {
@@ -1222,6 +1656,7 @@
         closeModal.addEventListener('click', closeModalHandler);
         prevBtn.addEventListener('click', () => navigateMedia('prev'));
         nextBtn.addEventListener('click', () => navigateMedia('next'));
+        showMoreBtn.addEventListener('click', toggleShowMore);
 
         // Close modal when clicking outside content
         modalOverlay.addEventListener('click', (e) => {
@@ -1275,6 +1710,7 @@
         });
 
         // Initialize the page
+        createArabicCalligraphy();
         initializeProjects();
     </script>
 </body>
