@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hicham Garrag | Set Design Portfolio</title>
+    <link rel="icon" type="image/svg" href="/media/favicon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'B Arabic Style';
+            src: url(fonts/BArabicStyle1.ttf) format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'decotype thuluth ii';
+            src: url(fonts/DTHULUTHII.ttf) format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'diwani letter';
+            src: url(fonts/DiwaniLetter.ttf) format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-black: #000000;
+            --color-white: #ffffff;
+            --color-gray: #f5f5f5;
+            --color-dark-gray: #333333;
+            --color-accent: #8B7355;
+            --color-accent-light: #a58c6c;
+            --color-accent-transparent: rgba(139, 115, 85, 0.15);
+            --font-primary: 'Inter', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--color-white);
+            color: var(--color-dark-gray);
+            line-height: 1.7;
+            font-weight: 300;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Enhanced Arabic Calligraphy System - Full Coverage */
+        .arabic-calligraphy {
+            position: fixed;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.25;
+            transition: opacity 0.5s ease;
+        }
+
+        .calligraphy-thuluth {
+            font-family: 'decotype thuluth ii';
+            letter-spacing: -5px;
+        }
+
+        .calligraphy-diwani {
+            font-family: 'diwani letter';
+            letter-spacing: -3px;
+        }
+
+        .calligraphy-arabic {
+            font-family: 'B Arabic Style';
+            letter-spacing: -2px;
+        }
+
+        /* Background Arabic Layer - Permanent Full Coverage */
+        .background-arabic-container {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -3;
+            pointer-events: none;
+        }
+
+        .background-arabic {
+            position: absolute;
+            font-family: 'decotype thuluth ii';
+            font-size: clamp(200px, 35vw, 600px);
+            color: rgba(139, 115, 85, 0.03);
+            text-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            transform-origin: center;
+            line-height: 0.8;
+            animation: floatArabicBg 120s ease-in-out infinite alternate;
+        }
+
+        .bg-arabic-1 {
+            top: 10%;
+            right: -10%;
+            transform: rotate(-20deg);
+            animation-delay: 0s;
+        }
+
+        .bg-arabic-2 {
+            bottom: 15%;
+            left: -8%;
+            transform: rotate(15deg);
+            animation-delay: -30s;
+        }
+
+        .bg-arabic-3 {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(25deg);
+            font-size: clamp(250px, 40vw, 700px);
+            animation-delay: -60s;
+        }
+
+        .bg-arabic-4 {
+            top: 70%;
+            right: 15%;
+            transform: rotate(-30deg);
+            font-size: clamp(180px, 30vw, 500px);
+            animation-delay: -90s;
+        }
+
+        @keyframes floatArabicBg {
+            0%, 100% { 
+                transform: translateY(0) rotate(var(--rotation, 0deg)) scale(1);
+                opacity: 0.03;
+            }
+            25% { 
+                transform: translateY(-50px) rotate(calc(var(--rotation, 0deg) + 5deg)) scale(1.02);
+                opacity: 0.04;
+            }
+            50% { 
+                transform: translateY(50px) rotate(calc(var(--rotation, 0deg) - 5deg)) scale(0.98);
+                opacity: 0.025;
+            }
+            75% { 
+                transform: translateY(-30px) rotate(calc(var(--rotation, 0deg) + 3deg)) scale(1.01);
+                opacity: 0.035;
+            }
+        }
+
+        /* Hero Section Arabic - Full Screen Coverage */
+        .hero-arabic-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .hero-arabic {
+            position: absolute;
+            font-family: 'decotype thuluth ii';
+            font-size: clamp(180px, 30vw, 550px);
+            color: rgba(139, 115, 85, 0.08);
+            text-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transform-origin: center;
+            line-height: 0.8;
+        }
+
+        .hero-arabic-1 {
+            top: 15%;
+            right: -5%;
+            transform: rotate(-15deg);
+            animation: floatArabic1 25s ease-in-out infinite alternate;
+        }
+
+        .hero-arabic-2 {
+            bottom: 10%;
+            left: -5%;
+            transform: rotate(8deg);
+            animation: floatArabic2 30s ease-in-out infinite alternate;
+        }
+
+        .hero-arabic-3 {
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%) rotate(5deg);
+            font-size: clamp(120px, 20vw, 350px);
+            animation: floatArabic3 35s ease-in-out infinite alternate;
+        }
+
+        .hero-arabic-4 {
+            top: 70%;
+            right: 15%;
+            transform: rotate(-25deg);
+            font-size: clamp(150px, 25vw, 450px);
+            animation: floatArabic4 40s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatArabic1 {
+            0%, 100% { transform: rotate(-15deg) translateY(0); }
+            50% { transform: rotate(-18deg) translateY(20px); }
+        }
+
+        @keyframes floatArabic2 {
+            0%, 100% { transform: rotate(8deg) translateY(0); }
+            50% { transform: rotate(5deg) translateY(15px); }
+        }
+
+        @keyframes floatArabic3 {
+            0%, 100% { transform: translateX(-50%) rotate(5deg) scale(1); }
+            50% { transform: translateX(-50%) rotate(2deg) scale(1.05); }
+        }
+
+        @keyframes floatArabic4 {
+            0%, 100% { transform: rotate(-25deg) translateX(0); }
+            50% { transform: rotate(-28deg) translateX(30px); }
+        }
+
+        /* Portfolio Section Arabic - Enhanced Coverage */
+        .portfolio-arabic-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .portfolio-arabic {
+            position: absolute;
+            font-family: 'decotype thuluth ii';
+            color: #8b735583;
+            text-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            transform-origin: center;
+            line-height: 0.8;
+        }
+
+        .portfolio-arabic-1 {
+            top: 10%;
+            left: 5%;
+            font-size: clamp(160px, 25vw, 450px);
+            transform: rotate(-25deg);
+            animation: floatPortfolio1 40s ease-in-out infinite alternate;
+        }
+
+        .portfolio-arabic-2 {
+            bottom: 20%;
+            right: 5%;
+            font-size: clamp(140px, 22vw, 400px);
+            transform: rotate(20deg);
+            animation: floatPortfolio2 45s ease-in-out infinite alternate;
+            z-index: 99999999999999999999999;
+        }
+
+        .portfolio-arabic-3 {
+            top: 35%;
+            left: 55%;
+            font-size: clamp(120px, 18vw, 350px);
+            transform: rotate(-12deg);
+            animation: floatPortfolio3 50s ease-in-out infinite alternate;
+        }
+
+        .portfolio-arabic-4 {
+            top:3%;
+            right: -25%;
+            font-size: clamp(130px, 20vw, 380px);
+            transform: rotate(-100deg);
+            animation: floatPortfolio4 35s ease-in-out infinite alternate; 
+            scale: 0.9;
+        }
+
+        .portfolio-arabic-5 {
+            bottom: 10%;
+            left: 10%;
+            font-size: clamp(150px, 23vw, 420px);
+            transform: rotate(-18deg);
+            animation: floatPortfolio5 55s ease-in-out infinite alternate;
+        }
+
+        .portfolio-arabic-6 {
+            top: 65%;
+            right: 25%;
+            font-size: clamp(110px, 17vw, 320px);
+            transform: rotate(25deg);
+            animation: floatPortfolio6 60s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatPortfolio1 {
+            0%, 100% { transform: rotate(-25deg) translateY(0); }
+            50% { transform: rotate(-28deg) translateY(25px); }
+        }
+
+        @keyframes floatPortfolio2 {
+            0%, 100% { transform: rotate(20deg) translateX(0); }
+            50% { transform: rotate(17deg) translateX(-30px); }
+        }
+
+        @keyframes floatPortfolio3 {
+            0%, 100% { transform: rotate(-12deg) translateY(0); }
+            50% { transform: rotate(-15deg) translateY(-20px); }
+        }
+
+        @keyframes floatPortfolio4 {
+            0%, 100% { transform: rotate(15deg) translateY(0); }
+            50% { transform: rotate(18deg) translateY(-18px); }
+        }
+
+        @keyframes floatPortfolio5 {
+            0%, 100% { transform: rotate(-18deg) translateX(0); }
+            50% { transform: rotate(-15deg) translateX(28px); }
+        }
+
+        @keyframes floatPortfolio6 {
+            0%, 100% { transform: rotate(25deg) translateY(0); }
+            50% { transform: rotate(22deg) translateY(22px); }
+        }
+
+        /* About Section Arabic - Full Coverage */
+        .about-arabic-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .about-arabic {
+            position: absolute;
+            font-family: 'B Arabic Style';
+            color: rgba(139, 115, 85, 0.1);
+            text-shadow: 0 10px 20px rgba(0,0,0,0.06);
+            transform-origin: center;
+            line-height: 0.8;
+        }
+
+        .about-arabic-1 {
+            top: 10%;
+            right: 8%;
+            font-size: clamp(130px, 20vw, 380px);
+            transform: rotate(18deg);
+            animation: floatAbout1 45s ease-in-out infinite alternate;
+        }
+
+        .about-arabic-2 {
+            bottom: 15%;
+            left: 10%;
+            font-size: clamp(150px, 17vw, 320px);
+            transform: rotate(-15deg);
+            animation: floatAbout2 50s ease-in-out infinite alternate; 
+            
+        }
+
+        .about-arabic-3 {
+            top: 35%;
+            left: 5%;
+            font-size: clamp(150px, 23vw, 420px);
+            transform: rotate(25deg);
+            animation: floatAbout3 55s ease-in-out infinite alternate;
+        }
+
+        .about-arabic-4 {
+            bottom: 30%;
+            right: 12%;
+            font-size: clamp(120px, 18vw, 350px);
+            transform: rotate(-10deg);
+            animation: floatAbout4 60s ease-in-out infinite alternate;
+        }
+
+        .about-arabic-5 {
+            top: 60%;
+            left: 25%;
+            font-size: clamp(100px, 15vw, 300px);
+            transform: rotate(12deg);
+            animation: floatAbout5 65s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatAbout1 {
+            0%, 100% { transform: rotate(18deg) translateY(0); }
+            50% { transform: rotate(15deg) translateY(20px); }
+        }
+
+        @keyframes floatAbout2 {
+            0%, 100% { transform: rotate(-15deg) translateX(0); }
+            50% { transform: rotate(-18deg) translateX(-25px); }
+        }
+
+        @keyframes floatAbout3 {
+            0%, 100% { transform: rotate(25deg) translateY(0); }
+            50% { transform: rotate(28deg) translateY(-28px); }
+        }
+
+        @keyframes floatAbout4 {
+            0%, 100% { transform: rotate(-10deg) translateX(0); }
+            50% { transform: rotate(-7deg) translateX(22px); }
+        }
+
+        @keyframes floatAbout5 {
+            0%, 100% { transform: rotate(12deg) translateY(0); }
+            50% { transform: rotate(9deg) translateY(18px); }
+        }
+
+        /* Contact Section Arabic - White Calligraphy */
+        .contact-arabic-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .contact-arabic {
+            position: absolute;
+            font-family: 'decotype thuluth ii';
+            color: rgba(255, 255, 255, 0.15);
+            text-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            transform-origin: center;
+            line-height: 0.8;
+        }
+
+        .contact-arabic-1 {
+            top: 15%;
+            left: 5%;
+            font-size: clamp(140px, 22vw, 400px);
+            transform: rotate(-20deg);
+            animation: floatContact1 40s ease-in-out infinite alternate;
+        }
+
+        .contact-arabic-2 {
+            bottom: 20%;
+            right: 8%;
+            font-size: clamp(130px, 20vw, 380px);
+            transform: rotate(25deg);
+            animation: floatContact2 45s ease-in-out infinite alternate;
+        }
+
+        .contact-arabic-3 {
+            top: 15%;
+            right: 20%;
+            font-size: clamp(160px, 25vw, 450px);
+            transform: rotate(-18deg);
+            animation: floatContact3 50s ease-in-out infinite alternate;
+        }
+
+        .contact-arabic-4 {
+            bottom: 35%;
+            left: 100%;
+            font-size: clamp(150px, 23vw, 420px);
+            transform: rotate(28deg);
+            animation: floatContact4 55s ease-in-out infinite alternate;
+        }
+
+        .contact-arabic-5 {
+            top: 60%;
+            left: 20%;
+            font-size: clamp(120px, 18vw, 350px);
+            transform: rotate(-22deg);
+            animation: floatContact5 60s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatContact1 {
+            0%, 100% { transform: rotate(-20deg) translateY(0); }
+            50% { transform: rotate(-23deg) translateY(25px); }
+        }
+
+        @keyframes floatContact2 {
+            0%, 100% { transform: rotate(25deg) translateX(0); }
+            50% { transform: rotate(22deg) translateX(-30px); }
+        }
+
+        @keyframes floatContact3 {
+            0%, 100% { transform: rotate(-18deg) translateY(0); }
+            50% { transform: rotate(-15deg) translateY(22px); }
+        }
+
+        @keyframes floatContact4 {
+            0%, 100% { transform: rotate(28deg) translateX(0); }
+            50% { transform: rotate(30deg) translateX(-25px); }
+        }
+
+        @keyframes floatContact5 {
+            0%, 100% { transform: rotate(-22deg) translateY(0); }
+            50% { transform: rotate(-25deg) translateY(20px); }
+        }
+
+        /* Footer Arabic - White Calligraphy */
+        .footer-arabic-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .footer-arabic {
+            position: absolute;
+            font-family: 'diwani letter';
+            color: rgba(255, 255, 255, 0.12);
+            text-shadow: 0 15px 30px rgba(0,0,0,0.4);
+            transform-origin: center;
+            line-height: 0.8;
+            animation: floatFooter 40s ease-in-out infinite alternate;
+        }
+
+        .footer-arabic-1 {
+            top: 45%;
+            left: 8%;
+            font-size: clamp(130px, 20vw, 380px);
+            transform: rotate(-18deg);
+            animation-delay: 0s;
+        }
+
+        .footer-arabic-2 {
+            bottom: 25%;
+            right: 12%;
+            font-size: clamp(140px, 22vw, 400px);
+            transform: rotate(22deg);
+            animation-delay: -20s;
+        }
+
+        .footer-arabic-3 {
+            top: 100%;
+            right: 10%;
+            font-size: clamp(110px, 17vw, 320px);
+            transform: rotate(-15deg);
+            animation-delay: -10s;
+        }
+
+        @keyframes floatFooter {
+            0%, 100% { transform: rotate(var(--rotation, 0deg)) translateY(0); }
+            50% { transform: rotate(calc(var(--rotation, 0deg) + 3deg)) translateY(20px); }
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: var(--color-black);
+            position: relative;
+            z-index: 2;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 25px 0;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-decoration: none;
+            color: var(--color-black);
+            position: relative;
+            z-index: 1001;
+        }
+
+        .logo span {
+            color: var(--color-accent);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            position: relative;
+            z-index: 1001;
+        }
+
+        nav ul li {
+            margin-left: 50px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--color-dark-gray);
+            font-weight: 400;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--color-accent);
+        }
+
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            background-color: var(--color-accent);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--color-dark-gray);
+            max-width: 600px;
+            margin-bottom: 50px;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #8B7355;
+            color: var(--color-white);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            transition: all 0.3s;
+            border: 1px solid #8B7355;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero-cta:hover {
+            background-color: transparent;
+            color: #8B7355;
+        }
+        .hero-cta-cv {
+            display: inline-block;
+            padding: 15px 40px;
+            
+            background-color: transparent;
+            color: #8B7355;
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            transition: all 0.3s;
+            border: 1px solid #8B7355;
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero-cta-cv:hover {
+            background-color: #8B7355;
+            color: var(--color-white);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 120px 0;
+            position: relative;
+            background-color: var(--color-white);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            color: var(--color-dark-gray);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            height: 500px;
+            background-color: var(--color-black);
+            border-radius: 8px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .project-card.hidden {
+            display: none;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        .project-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 40px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            color: var(--color-white);
+            transform: translateY(10px);
+            transition: transform 0.5s;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .project-card:hover .project-info {
+            transform: translateY(0);
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .project-year {
+            font-size: 1rem;
+            color: var(--color-accent);
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+
+        /* Show More Button */
+        .show-more-container {
+            text-align: center;
+            margin-top: 60px;
+            grid-column: 1 / -1;
+        }
+
+        .show-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 45px;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 2;
+        }
+
+        .show-more-btn:hover {
+            background-color: var(--color-accent);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(139, 115, 85, 0.2);
+        }
+
+        .show-more-btn i {
+            transition: transform 0.3s ease;
+        }
+
+        .show-more-btn.showing-less i {
+            transform: rotate(180deg);
+        }
+
+        /* Modal Gallery */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-container {
+            width: 95%;
+            height: 90vh;
+            max-width: 1600px;
+            background-color: var(--color-white);
+            display: flex;
+            overflow: hidden;
+            position: relative;
+            border-radius: 8px;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: none;
+            border: none;
+            color: var(--color-black);
+            font-size: 2.5rem;
+            cursor: pointer;
+            z-index: 10;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s;
+        }
+
+        .close-modal:hover {
+            color: var(--color-accent);
+        }
+
+        .media-section {
+            flex: 3;
+            background-color: var(--color-black);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .media-item {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            display: none;
+        }
+
+        .media-item.active {
+            display: block;
+        }
+
+        video.media-item {
+            width: 100%;
+            height: auto;
+        }
+
+        .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: var(--color-white);
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: background-color 0.3s;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .nav-btn:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        #prevBtn {
+            left: 30px;
+        }
+
+        #nextBtn {
+            right: 30px;
+        }
+
+        .info-section {
+            flex: 1;
+            padding: 60px 40px;
+            overflow-y: auto;
+            max-width: 500px;
+        }
+
+        .modal-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--color-black);
+        }
+
+        .project-description {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            color: var(--color-dark-gray);
+        }
+
+        .project-details h3 {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: var(--color-accent);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .project-details ul {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .project-details li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            font-size: 1.1rem;
+        }
+
+        .media-counter {
+            font-size: 1rem;
+            color: var(--color-dark-gray);
+            letter-spacing: 1px;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+
+        .about-text p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+        }
+
+        .about-image {
+            width: 100%;
+            height: auto;
+            background-color: var(--color-gray);
+            background-image: url('https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            z-index: 2;
+            border-radius: 8px;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            position: relative;
+        }
+
+        .contact-section .section-header h2,
+        .contact-section .section-header p {
+            color: var(--color-white);
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contact-info {
+            margin-bottom: 50px;
+        }
+
+        .contact-item {
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+        }
+
+        .contact-item i {
+            margin-right: 15px;
+            color: var(--color-accent);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .social-links a {
+            color: var(--color-white);
+            font-size: 1.3rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--color-accent);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        .copyright {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 1px;
+        }
+
+        /* Category Headers */
+        .category-header {
+            grid-column: 1 / -1;
+            margin: 60px 0 30px 0;
+            padding-bottom: 20px;
+            border-bottom: 3px solid var(--color-accent);
+            position: relative;
+        }
+
+        .category-header h2 {
+            font-size: 2.5rem;
+            color: var(--color-black);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            .modal-container {
+                flex-direction: column;
+                height: 95vh;
+            }
+            
+            .info-section {
+                max-width: 100%;
+                padding: 40px;
+            }
+            
+            .media-section {
+                height: 60vh;
+            }
+            
+            .hero-arabic {
+                font-size: clamp(120px, 25vw, 400px);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                padding: 0 30px;
+            }
+            
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+            
+            .projects-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 30px;
+            }
+            
+            .hero-arabic {
+                
+                font-size: clamp(120px, 25vw, 400px);
+            }
+            
+            .portfolio-arabic,
+            .about-arabic,
+            .contact-arabic {
+                font-size: clamp(120px, 25vw, 400px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2.5rem;
+            }
+            
+            .project-card {
+                height: 400px;
+            }
+            
+            .modal-container {
+                width: 98%;
+                height: 98vh;
+            }
+            
+            .nav-btn {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+            
+            /* Reposition Arabic for mobile */
+            .hero-arabic-1 {
+                right: -25%;
+                top: 10%;
+            }
+            
+            .hero-arabic-2 {
+                left: -25%;
+                bottom: 15%;
+            }
+            
+            .hero-arabic-3 {
+                top: 35%;
+                font-size: clamp(60px, 15vw, 200px);
+            }
+            
+            .hero-arabic-4 {
+                right: 10%;
+                top: 75%;
+                font-size: clamp(80px, 18vw, 250px);
+            }
+            
+            .portfolio-arabic-1 {
+                left: -15%;
+            }
+            
+            .portfolio-arabic-2 {
+                right: -15%;
+            }
+            
+            .about-arabic-1 {
+                right: -10%;
+            }
+            
+            .about-arabic-2 {
+                left: -10%;
+            }
+            
+            .contact-arabic-1 {
+                left: -15%;
+            }
+            
+            .contact-arabic-2 {
+                right: -15%;
+            }
+
+            .category-header h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-title {
+                font-size: 2rem;
+            }
+            
+            .project-description {
+                font-size: 1.2rem;
+            }
+            
+            /* Further reduce Arabic opacity and size for mobile */
+            .hero-arabic,
+            .portfolio-arabic,
+            .about-arabic,
+            .contact-arabic {
+                font-size: clamp(220px, 25vw, 400px);
+                opacity: 0.7;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Arabic Layer - Full Page -->
+    <div class="background-arabic-container">
+        <div class="background-arabic bg-arabic-1" style="--rotation: -20deg;">جمال</div>
+        <div class="background-arabic bg-arabic-2" style="--rotation: 15deg;">إبداع</div>
+        <div class="background-arabic bg-arabic-3" style="--rotation: 25deg;">فن</div>
+        <div class="background-arabic bg-arabic-4" style="--rotation: -30deg;">شغف</div>
+    </div>
+
+    <!-- Hero Section Arabic Calligraphy -->
+    <div class="hero-arabic-container">
+        <div class="hero-arabic hero-arabic-1">فن</div>
+        <div class="hero-arabic hero-arabic-2">جمال</div>
+        <div class="hero-arabic hero-arabic-3">إبداع</div>
+        <div class="hero-arabic hero-arabic-4">شغف</div>
+    </div>
+
+    <!-- Portfolio Section Arabic Calligraphy -->
+    <div class="portfolio-arabic-container">
+        <div class="portfolio-arabic portfolio-arabic-1">تفاصيل</div>
+        <div style="z-index: 99999;" class="portfolio-arabic portfolio-arabic-2">روح</div>
+        <div class="portfolio-arabic portfolio-arabic-3">إتقان</div>
+        <div class="portfolio-arabic portfolio-arabic-5">فن</div>
+        <div class="portfolio-arabic portfolio-arabic-6">براعة</div>
+    </div>
+
+    <!-- About Section Arabic Calligraphy -->
+    <div class="about-arabic-container">
+        <div class="about-arabic about-arabic-1">حكاية</div>
+        <div class="about-arabic about-arabic-2">رؤية</div>
+        <div class="about-arabic about-arabic-3">خيال</div>
+        <div class="about-arabic about-arabic-4">سرد</div>
+        <div class="about-arabic about-arabic-5">رواية</div>
+    </div>
+
+    <!-- Contact Section Arabic Calligraphy - White -->
+    <div class="contact-arabic-container">
+        <div class="contact-arabic contact-arabic-1">تواصل</div>
+        <div class="contact-arabic contact-arabic-2">تعاون</div>
+        <div class="contact-arabic contact-arabic-3">حوار</div>
+        <div class="contact-arabic contact-arabic-4">إلتقاء</div>
+        <div class="contact-arabic contact-arabic-5">إرتباط</div>
+    </div>
+
+    <!-- Footer Arabic Calligraphy - White -->
+    <div class="footer-arabic-container">
+        <div class="footer-arabic footer-arabic-1" style="--rotation: -18deg;">إلهام</div>
+        <div class="footer-arabic footer-arabic-2" style="--rotation: 22deg;">عطاء</div>
+        <div class="footer-arabic footer-arabic-3" style="--rotation: -15deg;">خلود</div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">HICHAM<span>GARRAG</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#portfolio">PORTFOLIO</a></li>
+                    <li><a href="#about">ABOUT</a></li>
+                    <li><a href="#contact">CONTACT</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Crafting Immersive Worlds Through Set Design</h1>
+                <p>With over a decade of experience in film, television, and theater, I transform narratives into tangible environments that breathe life into stories and captivate audiences.</p>
+                <a href="#portfolio" class="hero-cta">VIEW PORTFOLIO</a>
+                <a href="/media/Hicham.Garrag[Eng].pdf" target="_blank" class="hero-cta-cv">Resume</a>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <h2>Selected Projects</h2>
+                <p>A curated selection of my most impactful set design work across various genres and mediums.</p>
+            </div>
+            <div class="projects-grid" id="projectsGrid">
+                <!-- Project cards will be generated by JavaScript -->
+            </div>
+            <!-- Show More Button Container -->
+            <div class="show-more-container" id="showMoreContainer" style="display: none;">
+                <button class="show-more-btn" id="showMoreBtn">
+                    <span id="showMoreText">Show More</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p><span style="color: #8B7355; font-weight:500;">Hicham Garrag</span> a highly skilled Props Master and Set
+Decorator with extensive experience
+in film, television, and commercial
+productions. Recognized for
+exceptional creativity, technical
+precision, and the ability to bring
+directors’ visions to life through
+innovative prop design and authentic
+set dressing. Adept at leading prop
+teams, managing tight schedules, and
+ensuring historical and stylistic
+accuracy across a wide range of
+genres and production scales.
+Passionate about storytelling through
+visual details and collaboration within
+fast-paced, multicultural film
+environments.</p>
+                </div>
+                    <img loading="lazy" class="about-image" src="/media/personal/pp.png" width="auto" alt="">
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Interested in collaborating on a project? Reach out to discuss your vision.</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i> hichampub@outlook.fr
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i> +212 669 502 554
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i> +212 675 305 867
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i> Marrakech, Morocco
+                    </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/averasing" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/avera.sing" target="_blank"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="copyright">© 2023 <a href="mailto:oranos07.dev@gmail.com" style="color: #8B7355; text-decoration: none;">Oranos</a>. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Gallery -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-container">
+            <button class="close-modal" id="closeModal">&times;</button>
+            <div class="media-section">
+                <button class="nav-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+                <!-- Media items will be dynamically added here -->
+            </div>
+            <div class="info-section">
+                <h2 class="modal-title" id="modalTitle">Project Title</h2>
+                <p class="project-description" id="projectDescription"></p>
+                <div class="project-details">
+                    <h3>Project Details</h3>
+                    <ul id="projectDetails"></ul>
+                    <div class="media-counter">
+                        <span id="currentMedia">1</span> of <span id="totalMedia">5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+     <script>
+        // Project Data - COMPLETE AND PERFECTED STRUCTURE
+        const projectsData = {
+          categories: [
+            {
+              id: "film",
+              title: "FILM & TELEVISION",
+              projects: [
+                {
+                  id: "alex",
+                  title: "Alexander: The Making of a God",
+                  year: "2024",
+                  role: "Set Dresser",
+                  description:
+                    "Worked on set dressing and atmosphere creation for the historical documentary-drama.",
+                  type: "film",
+                  media: Array.from({ length: 16 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/alex/file_${i + 1}.jpg`,
+                    alt: `Alexander: The Making of a God - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "army",
+                  title: "Army of One",
+                  year: "2020",
+                  role: "Set Dresser",
+                  description:
+                    "Supported the art department with military-themed environments and prop placement.",
+                  type: "film",
+                  media: Array.from({ length: 19 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/army/file_${i + 1}.jpg`,
+                    alt: `Army of One - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "blood",
+                  title: "Blood and Treasure",
+                  year: "2019",
+                  role: "Set Dresser",
+                  description:
+                    "Handled set pieces and dressing for adventure and historical scenes.",
+                  type: "film",
+                  media: Array.from({ length: 1 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/blood/file_${i + 1}.jpg`,
+                    alt: `Blood and Treasure - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "cap",
+                  title: "Captain Phillips",
+                  year: "2013",
+                  role: "Set Dresser",
+                  description:
+                    "Worked on ship interiors and action-focused environments for realism.",
+                  type: "film",
+                  media: Array.from({ length: 1 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/cap/file_${i + 1}.jpg`,
+                    alt: `Captain Phillips - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "glad",
+                  title: "Gladiator II",
+                  year: "2024",
+                  role: "Set Dresser",
+                  description:
+                    "Contributed to large-scale period sets requiring historical accuracy.",
+                  type: "film",
+                  media: Array.from({ length: 47 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/glad/file_${i + 1}.jpg`,
+                    alt: `Gladiator II - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "gotami",
+                  title: "Gautami Putra Satakarni",
+                  year: "2016",
+                  role: "Graphist & Painter",
+                  description:
+                    "Created traditional graphics and painted set elements for the historical film.",
+                  type: "film",
+                  media: Array.from({ length: 22 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/gotami/file_${i + 1}.jpg`,
+                    alt: `Gautami Putra Satakarni - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "johnwick",
+                  title: "John Wick 3",
+                  year: "2019",
+                  role: "Set Decorator Assistant / Standby",
+                  description:
+                    "Assisted with dressing action-heavy scenes and maintaining continuity on set.",
+                  type: "film",
+                  media: Array.from({ length: 20 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/johnwick/file_${i + 1}.jpg`,
+                    alt: `John Wick 3 - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "mib",
+                  title: "Men in Black: International",
+                  year: "2019",
+                  role: "Set Dresser",
+                  description:
+                    "Helped build futuristic environments and handled sci-fi prop placement.",
+                  type: "film",
+                  media: Array.from({ length: 6 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/mib/file_${i + 1}.jpg`,
+                    alt: `Men in Black: International - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "mi",
+                  title: "Mission Impossible: Rogue Nation",
+                  year: "2015",
+                  role: "Set Dresser",
+                  description:
+                    "Prepared high-intensity action sets and handled detailed environmental dressing.",
+                  type: "film",
+                  media: Array.from({ length: 9 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/mi/file_${i + 1}.jpg`,
+                    alt: `Mission Impossible: Rogue Nation - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "nightmanager",
+                  title: "The Night Manager",
+                  year: "2016",
+                  role: "Standby / Set Dresser",
+                  description:
+                    "Maintained continuity and dressed luxury interiors throughout filming.",
+                  type: "film",
+                  media: Array.from({ length: 4 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/nightmanager/file_${i + 1}.jpg`,
+                    alt: `The Night Manager - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "spectre",
+                  title: "Spectre",
+                  year: "2015",
+                  role: "Set Dresser",
+                  description:
+                    "Worked on detailed international locations and supported action preparations.",
+                  type: "film",
+                  media: Array.from({ length: 1 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/spectre/file_${i + 1}.jpg`,
+                    alt: `Spectre - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "transporter",
+                  title: "Transporter: The Series",
+                  year: "2014",
+                  role: "Set Dresser",
+                  description:
+                    "Prepared vehicle interiors and fast-paced action scenes for the series.",
+                  type: "Tv-show",
+                  media: Array.from({ length: 1 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/transporter/file_${i + 1}.jpg`,
+                    alt: `Transporter: The Series - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "lord",
+                  title: "Lord of War",
+                  year: "2025",
+                  role: "Graphic Set Dresser / On-Set Graphic Designer",
+                  description:
+                    "Created, sourced, and installed all graphic elements including signs, labels, documents, and posters. Ensured continuity and worked directly with the Set Decorator and Art Director.",
+                  type: "film",
+                  media: Array.from({ length: 11 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/lord/file_${i + 1}.jpeg`,
+                    alt: `Lord of War - Image ${i + 1}`
+                  }))
+                }
+              ]
+            },
+
+            // ADS CATEGORY
+            {
+              id: "ads",
+              title: "Advertisements",
+              projects: [
+                {
+                  id: "lesieur",
+                  title: "Lesieur",
+                  year: "2024",
+                  role: "Standby / Set Dresser (Graphics & Décor)",
+                  description:
+                    "Worked on creating and placing graphic and decor elements, ensuring a clean and consistent visual layout.",
+                  type: "ad",
+                  media: Array.from({ length: 22 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/lesieur/file_${i + 1}.jpg`,
+                    alt: `Lesieur - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "villa",
+                  title: "Villa Artwork",
+                  year: "2022",
+                  role: "Artist / Painter",
+                  description:
+                    "Created artistic paintings, sculptures, and Arabic calligraphy pieces used throughout the set.",
+                  type: "Interior",
+                  media: Array.from({ length: 28 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/villa/file_${i + 1}.jpg`,
+                    alt: `Villa Artwork - Image ${i + 1}`
+                  }))
+               
+                },
+
+                {
+                  id: "mcd",
+                  title: "McDonald's",
+                  year: "2021",
+                  role: "Standby Props / Set Dresser",
+                  description:
+                    "Assisted with fast product setup, clean visuals, and continuity for food scenes.",
+                  type: "ad",
+                  media: Array.from({ length: 21 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/mcd/file_${i + 1}.jpg`,
+                    alt: `McDonald's - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "yves",
+                  title: "Yves Saint Laurent",
+                  year: "2018",
+                  role: "Décor Artist",
+                  description:
+                    "Worked on decorative shapes, jewelry-style props, and premium visual layouts.",
+                  type: "ad",
+                  media: Array.from({ length: 22 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/yves/file_${i + 1}.jpg`,
+                    alt: `Yves Saint Laurent - Image ${i + 1}`
+                  }))
+                },
+                
+                {
+                    id: "kasztelan",
+                    title: "Kasztelan Beer",
+                    year: "2020",
+                    role: "Set Dresser / Props",
+                    description:
+                    "Handled prop organization and dressed environments for the beer commercial.",
+                    type: "ad",
+                    media: Array.from({ length: 13 }, (_, i) => ({
+                        type: "image",
+                        src: `/media/kasz/file_${i + 1}.jpg`,
+                        alt: `Kasztelan Beer - Image ${i + 1}`
+                    }))
+                },
+                {
+                  id: "saad",
+                  title: "Saad Lamjarred - ASIF HABIBI",
+                  year: "2019",
+                  role: "Décor Artist",
+                  description:
+                    "Worked on decorative shapes, jewelry-style props, and premium visual layouts for the music video.",
+                  type: "Music Video",
+                  media: Array.from({ length: 39 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/saad/file_${i + 1}.jpg`,
+                    alt: `Saad Lamjarred - ASIF HABIBI - Image ${i + 1}`
+                  }))
+                },
+
+                {
+                  id: "wella",
+                  title: "Wella",
+                  year: "2019",
+                  role: "Set Dresser",
+                  description:
+                    "Ensured elegant product presentation and maintained visual consistency on set.",
+                  type: "ad",
+                  media: Array.from({ length: 2 }, (_, i) => ({
+                    type: "image",
+                    src: `/media/wella/file_${i + 1}.jpg`,
+                    alt: `Wella - Image ${i + 1}`
+                  }))
+                }
+              ]
+            }
+          ]
+        };
+
+        // DOM Elements
+        const projectsGrid = document.getElementById('projectsGrid');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeModal = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const projectDescription = document.getElementById('projectDescription');
+        const projectDetails = document.getElementById('projectDetails');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const currentMedia = document.getElementById('currentMedia');
+        const totalMedia = document.getElementById('totalMedia');
+        const mediaSection = document.querySelector('.media-section');
+        const showMoreBtn = document.getElementById('showMoreBtn');
+        const showMoreContainer = document.getElementById('showMoreContainer');
+        const showMoreText = document.getElementById('showMoreText');
+
+        // State Variables
+        let currentProject = null;
+        let currentMediaIndex = 0;
+        let isShowingAll = false;
+        let visibleCount = 9;
+
+        // Get all projects flattened
+        function getAllProjects() {
+            let allProjects = [];
+            projectsData.categories.forEach(category => {
+                category.projects.forEach(project => {
+                    allProjects.push({
+                        ...project,
+                        // Convert media array to match expected format with details
+                        details: [
+                            `Year: ${project.year}`,
+                            `Role: ${project.role}`,
+                            `Type: ${project.type}`
+                        ]
+                    });
+                });
+            });
+            return allProjects;
+        }
+
+        // Initialize Project Cards with Show More functionality
+        function initializeProjects() {
+            projectsGrid.innerHTML = '';
+            
+            const allProjects = getAllProjects();
+            const totalProjects = allProjects.length;
+            
+            // Show only first 9 projects initially
+            const projectsToShow = allProjects.slice(0, visibleCount);
+            
+            // Add projects directly (no category headers)
+            projectsToShow.forEach(project => {
+                createProjectCard(project);
+            });
+            
+            // Show the Show More button if there are more projects
+            if (totalProjects > visibleCount) {
+                showMoreContainer.style.display = 'block';
+                updateShowMoreButton();
+            }
+        }
+
+        // Create a project card
+        function createProjectCard(project) {
+            const projectCard = document.createElement('div');
+            projectCard.className = 'project-card';
+            projectCard.dataset.id = project.id;
+            
+            // Check if project has media
+            const hasMedia = project.media && project.media.length > 0;
+            const imageSrc = hasMedia ? project.media[0].src : '/media/placeholder.jpg';
+            const imageAlt = hasMedia ? project.media[0].alt : `No image available for ${project.title}`;
+            
+            projectCard.innerHTML = `
+                <img src="${imageSrc}" alt="${imageAlt}" class="project-image" loading="lazy">
+                <div class="project-info">
+                    <h3 style="color:white;" class="project-title">${project.title}</h3>
+                    <p class="project-year">${project.year} • ${project.role}</p>
+                </div>
+            `;
+            
+            projectCard.addEventListener('click', () => openModal(project.id));
+            projectsGrid.appendChild(projectCard);
+            
+            // Add animation delay based on index
+            const cards = document.querySelectorAll('.project-card');
+            const index = cards.length - 1;
+            projectCard.style.animationDelay = `${index * 0.1}s`;
+        }
+
+        // Show More / Show Less functionality
+        function toggleShowMore() {
+            const allProjects = getAllProjects();
+            
+            if (!isShowingAll) {
+                // Show all projects
+                const remainingProjects = allProjects.slice(visibleCount);
+                
+                remainingProjects.forEach(project => {
+                    createProjectCard(project);
+                });
+                
+                isShowingAll = true;
+            } else {
+                // Hide extra projects (keep only first 9)
+                const projectCards = document.querySelectorAll('.project-card');
+                
+                for (let i = visibleCount; i < projectCards.length; i++) {
+                    projectCards[i].style.opacity = '0';
+                    projectCards[i].style.transform = 'translateY(20px)';
+                    
+                    setTimeout(() => {
+                        projectCards[i].remove();
+                    }, 300);
+                }
+                
+                isShowingAll = false;
+            }
+            
+            updateShowMoreButton();
+        }
+
+        // Update Show More button text and icon
+        function updateShowMoreButton() {
+            const allProjects = getAllProjects();
+            const totalProjects = allProjects.length;
+            
+            if (isShowingAll) {
+                showMoreText.textContent = 'Show Less';
+                showMoreBtn.classList.add('showing-less');
+            } else {
+                const remaining = totalProjects - visibleCount;
+                showMoreText.textContent = `Show More (+${remaining})`;
+                showMoreBtn.classList.remove('showing-less');
+            }
+        }
+
+        // Open Modal with Project
+        function openModal(projectId) {
+            const allProjects = getAllProjects();
+            currentProject = allProjects.find(p => p.id === projectId);
+            currentMediaIndex = 0;
+            
+            if (!currentProject) return;
+            
+            // Update modal content
+            modalTitle.textContent = currentProject.title;
+            projectDescription.textContent = currentProject.description;
+            
+            // Update project details
+            projectDetails.innerHTML = '';
+            currentProject.details.forEach(detail => {
+                const li = document.createElement('li');
+                li.textContent = detail;
+                projectDetails.appendChild(li);
+            });
+            
+            // Check if project has media
+            if (!currentProject.media || currentProject.media.length === 0) {
+                // Add placeholder media
+                currentProject.media = [{
+                    type: "image",
+                    src: "/media/placeholder.jpg",
+                    alt: "No images available for this project"
+                }];
+            }
+            
+            // Update media
+            updateMediaDisplay();
+            
+            // Show modal
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Update Media Display
+        function updateMediaDisplay() {
+            // Clear current media
+            const existingMedia = document.querySelectorAll('.media-item');
+            existingMedia.forEach(media => media.remove());
+            
+            // Update counters
+            totalMedia.textContent = currentProject.media.length;
+            currentMedia.textContent = currentMediaIndex + 1;
+            
+            // Create and add new media elements
+            currentProject.media.forEach((media, index) => {
+                let mediaElement;
+                
+                if (media.type === 'image') {
+                    mediaElement = document.createElement('img');
+                    mediaElement.src = media.src;
+                    mediaElement.alt = media.alt;
+                    // Add loading attribute for better performance
+                    mediaElement.loading = 'lazy';
+                } else {
+                    mediaElement = document.createElement('video');
+                    mediaElement.src = media.src;
+                    mediaElement.controls = true;
+                    mediaElement.muted = true;
+                    mediaElement.playsInline = true;
+                }
+                
+                mediaElement.className = 'media-item';
+                if (index === currentMediaIndex) {
+                    mediaElement.classList.add('active');
+                }
+                
+                mediaSection.appendChild(mediaElement);
+            });
+        }
+
+        // Navigate Media
+        function navigateMedia(direction) {
+            if (!currentProject) return;
+            
+            if (direction === 'next') {
+                currentMediaIndex = (currentMediaIndex + 1) % currentProject.media.length;
+            } else {
+                currentMediaIndex = (currentMediaIndex - 1 + currentProject.media.length) % currentProject.media.length;
+            }
+            
+            updateMediaDisplay();
+        }
+
+        // Close Modal
+        function closeModalHandler() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Pause any playing videos
+            const videos = document.querySelectorAll('video');
+            videos.forEach(video => {
+                video.pause();
+            });
+        }
+
+        // Event Listeners
+        closeModal.addEventListener('click', closeModalHandler);
+        prevBtn.addEventListener('click', () => navigateMedia('prev'));
+        nextBtn.addEventListener('click', () => navigateMedia('next'));
+        showMoreBtn.addEventListener('click', toggleShowMore);
+
+        // Close modal when clicking outside content
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModalHandler();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (!modalOverlay.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') {
+                closeModalHandler();
+            } else if (e.key === 'ArrowLeft') {
+                navigateMedia('prev');
+            } else if (e.key === 'ArrowRight') {
+                navigateMedia('next');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a, .hero-cta').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = href;
+                    const targetSection = document.querySelector(targetId);
+                    
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.padding = '15px 0';
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.05)';
+            } else {
+                header.style.padding = '25px 0';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Initialize the page
+        initializeProjects();
+    </script>
+</body>
+<!-- changed the font size of arabic text to 500px -->
+<style>
+    .hero-arabic,
+    .portfolio-arabic,
+    .about-arabic,
+    .contact-arabic {
+        font-size: 300px;
+    }
+     .portfolio-arabic-2 {
+           z-index: 99999999999999999999999;
+        }
+</style>
+
+</html>
